@@ -1,9 +1,9 @@
 .\" Manpage for _printf.
-.TH man 8 "23 October 2018" "1.0" "_printf man page"
+.TH man 8 "4 October 2021" "1.0" "_printf man page"
 .SH NAME
 _printf - format and write a string, character, or integer to stdout
 .SH SYNOPSIS
-#include "main.h"
+#include "holberton.h"
 .br
 #include <stdarg.h>
 .br
