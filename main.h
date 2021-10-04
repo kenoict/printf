@@ -18,6 +18,7 @@ int print_R(va_list R);
 int (*get_specifier(char *s))(va_list ap, params_t *params);
 int print_hex(unsigned int n, unsigned int c);
 int _putchar(char c);
+int _puts(char *str);
 int _printf(const char *format, ...);
 int print_char(va_list ap);
 int print_string(va_list ap);
