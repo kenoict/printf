@@ -15,6 +15,7 @@ typedef struct printer
 	int (*fn)(va_list);
 } print_t;
 int print_R(va_list R);
+int print_hex(unsigned int n, unsigned int c);
 int _putchar(char c);
 int _printf(const char *format, ...);
 int print_char(va_list ap);
