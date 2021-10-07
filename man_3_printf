@@ -1,88 +1,97 @@
-.TH _printf  "5  october 2021" "1.0" "custom man page"
+.TH _PRINTF 3  2021-10-05 "Holberton" "Linux Programmer's Manual"
 .SH NAME
-.B _printf
-- formatted output conversion
+_printf
 .SH SYNOPSIS
-.B #include "holberton.h"
-.sp
-int _printf(const char *format, ...);
+.nf
+.B #include <main.h>
+.PP
+.BI "int _printf(const char *" format ", ...);"
+.RE
+.ad
+.PD
 .SH DESCRIPTION
-The function printf() writes output to
-.I stdout,
-the standard output stream. It writes the output under the control of a format string that specifies how subsequent arguments (or arguments accessed via the variable-length argument facilities of stdarg(3)) are converted for output.
-.SS Return value
-Upon successful return, this function returns the number of characters printed (excluding the null byte used to end output to strings).
-If an output error is encountered, a negative value is returned.
+The function 
+.BR _printf ()
+produces output according to a
+.I format
+as described below.
+The function writes output to
+.IR stdout,
+the standard output stream.
+.PP
+_printf writes the output via a
+.I format
+string which uses special characters to instruct how subsequent arguments (or arguments accessed via
+the variable-length argument facilities of
+.BR stdarg (3))
+are converted for output.
 .SS Format of the format string
-The format string is a character string, beginning and ending in its initial shift state, if any. The format string is composed of zero or more directives: ordinary characters (not %), which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching zero or more subsequent arguments. Each conversion specification is introduced by the character %.
-.I conversion specifier.
-.SS The flag characters
-.SS The field width
-.SS The precision
-.SS The length modifier
-.SS The conversion specifier
-A character that specifies the type of conversion to be applied. The conversion specifiers and their meanings are:
-.sp
-b      The
-.I int
-argument is converted to binary as characters, and the result is written.
-.sp
-c      The
-.I int
-argument is converted to an unsigned char, and the resulting character is written.
-.sp
-d, i   The
-.I int
-argument is converted to signed decimal notation.
-.sp
-o      The
-.I int
-argument is converted to octal as characters, and the result is written.
-.sp
-r      The
-.I const char *
-argument characters are all printed in reverse.
-.sp
-R      The
-.I const char *
-argument is encrypted shifting each letter 13 letters down the alphabet. rot13
-.sp
-s
-.RS
+The format string is a character string composed of zero or more directives: 
+ordinary characters (not
+.BR % ),
+which are copied unchanged to the output stream,
+.I printf("This is an example"),
+and conversion specifications, each of which results in fetching zero or more subsequent arguments. After the format string ends (via closing double quotes), a coma is placed to separate the format string and each subsequent argument.
+Each conversion specification is introduced by the character
+.BR % ,
+and ends with a
+.IR "conversion specifier". Here is an example:
+.I printf("Print an integer: %i", 9) 
+Notice how the integer value is separated by a coma. You may also use variables in place of literal values as well.
+To print a literal 
+.I %
+, simply print:
+.I %%
+.
+.PP
+The arguments must correspond properly (after type promotion) with the
+conversion specifier.
+By default, the arguments are used in the order
+given, and each conversion specifier asks for the next
+argument. If _printf is given a NULL string, the function prints:
+.I (null)
+ in place of the string. If _printf is given a NULL integer argument, 
+ .I 0 
+ is printed.
+.SS Conversion specifiers
+A character that specifies the type of conversion to be applied.
+The conversion specifiers and their meanings are:
+.TP
+.BR d ", " i
 The
-.I const char *
-argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but not including) a terminating null byte ('\0').
-.RE
-.sp
-%      A '%' is written. No argument is converted. The complete conversion specification is '%%'.
-.SH CONFORMING TO
-The printf() function conforms to C89.
+.I int
+argument is printed.
+.TP
+.BR c
+The
+.I char
+argument is printed.
+.TP
+.BR s
+The
+.I string
+argument is printed.
+.SH RETURN VALUE
+Upon successful return, this function returns the number of characters
+printed (excluding the null byte used to end output to strings). Upon error, this funtion returns
+.I -1
+. If the format string is NULL, or if a % is only followed by a null byte or space character, _printf returns an error.
 .SH NOTES
-This custom _printf function does not yet handle more
-.I flags, field width, precision,
-or
-.I length modifiers.
-.SH EXAMPLE
-To print strings and characters:
-.sp
-.RS
-#include <(our files)>
-.RE
-.RS
-_printf("Let's print %c %s\\n", 'a', "string");
-.RE
-.sp
-To print decimal numbers and integers:
-.sp
-.RS
-#include <(our files)>
-.RE
-.RS
-_printf("Max int is %d and min int is %i\\n", 2147483647, -2147483648);
-.RE
+Conversion specifiers for many other arguments and types will be implemented over the course of _printf's development at Holberton.
 .SH BUGS
-Bugs...
-.SH SEE ALSO
-.I write(2), printf(3)
-.SH AUTHOR
-Mafabi kennedy and Fatim
+Upon printing a conversion specifier after a previous
+.I % 
+which was followed by space(s), the function stops printing and returns an error.
+.SH EXAMPLES
+.TP
+To print an integer: 
+_printf("%d is an integer", 9);
+.TP
+To print a string:
+_printf("My dog is a %s boy!", "good");
+.TP
+To print a character:
+_printf("Dog begins with %c", 'D');
+.TP
+To print an integer variable:
+_printf("%i is an int", x);
